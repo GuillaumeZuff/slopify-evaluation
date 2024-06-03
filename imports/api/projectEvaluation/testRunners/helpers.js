@@ -1,4 +1,5 @@
 import { Accounts } from "meteor/accounts-base";
+import axios from "axios";
 import ProjectEvaluations from "../entities/projectEvaluation";
 import { TestResults } from "../../constants";
 
@@ -15,6 +16,27 @@ const removeTestResult = async ({ evaluation, test }) => {
                 testResults: {
                     testId: test.id,
                 },
+            },
+        },
+    );
+};
+
+const testError = async ({ evaluation, test, error }) => {
+    await removeTestResult({ evaluation, test });
+    await ProjectEvaluations.updateAsync(
+        {
+            _id: evaluation._id,
+        },
+        {
+            $push: {
+                testResults: {
+                    testId: test.id,
+                    result: TestResults.FAILED,
+                    errorMessage: `Une erreur est survenue lors de l'exécution du test: ${error?.message}`,
+                },
+            },
+            $inc: {
+                testIndex: 1,
             },
         },
     );
@@ -106,9 +128,26 @@ const deleteUser = async () => {
     });
 };
 
+const runQuery = async ({ query, variables, token }) => {
+    return await axios.post(
+        GRAPHQL_END_POINT,
+        {
+            query,
+            variables,
+        },
+        {
+            headers: {
+                authorization: token,
+            },
+        },
+    );
+};
+
 export {
     createUser,
     deleteUser,
+    runQuery,
+    testError,
     testFailed,
     testPassed,
     GRAPHQL_END_POINT,

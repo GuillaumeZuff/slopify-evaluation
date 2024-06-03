@@ -1,11 +1,11 @@
 import {
     createUser,
     deleteUser,
+    testError,
     testFailed,
     testPassed,
-    GRAPHQL_END_POINT,
+    runQuery,
 } from "./helpers";
-import axios from "axios";
 
 const GET_USER = `
     query getUser {
@@ -22,17 +22,10 @@ const GET_USER = `
 const runGetUser1 = async ({ evaluation, test }) => {
     const { token, user } = await createUser();
     try {
-        const response = await axios.post(
-            GRAPHQL_END_POINT,
-            {
-                query: GET_USER,
-            },
-            {
-                headers: {
-                    authorization: token,
-                },
-            },
-        );
+        const response = await runQuery({
+            query: GET_USER,
+            token,
+        });
         const getUser = response.data?.data?.getUser;
         if (!getUser) {
             await testFailed({
@@ -50,10 +43,10 @@ const runGetUser1 = async ({ evaluation, test }) => {
             await testPassed({ evaluation, test });
         }
     } catch (error) {
-        await testFailed({
+        await testError({
             evaluation,
             test,
-            errorMessage: "getUser a retourné une erreur",
+            error,
         });
     }
     await deleteUser();
@@ -61,17 +54,10 @@ const runGetUser1 = async ({ evaluation, test }) => {
 
 const runGetUser2 = async ({ evaluation, test }) => {
     try {
-        const response = await axios.post(
-            GRAPHQL_END_POINT,
-            {
-                query: GET_USER,
-            },
-            {
-                headers: {
-                    authorization: "BadToken",
-                },
-            },
-        );
+        const response = await runQuery({
+            query: GET_USER,
+            token: "BadToken",
+        });
         const getUser = response.data?.data?.getUser;
         if (getUser) {
             await testFailed({
@@ -87,10 +73,10 @@ const runGetUser2 = async ({ evaluation, test }) => {
             });
         }
     } catch (error) {
-        await testFailed({
+        await testError({
             evaluation,
             test,
-            errorMessage: "getUser a retourné une erreur",
+            error,
         });
     }
 };
