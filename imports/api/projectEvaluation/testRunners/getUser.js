@@ -27,7 +27,13 @@ const runGetUser1 = async ({ evaluation, test }) => {
             token,
         });
         const getUser = response.data?.data?.getUser;
-        if (!getUser) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (!getUser) {
             await testFailed({
                 evaluation,
                 test,
@@ -59,7 +65,13 @@ const runGetUser2 = async ({ evaluation, test }) => {
             token: "BadToken",
         });
         const getUser = response.data?.data?.getUser;
-        if (getUser) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (getUser) {
             await testFailed({
                 evaluation,
                 test,

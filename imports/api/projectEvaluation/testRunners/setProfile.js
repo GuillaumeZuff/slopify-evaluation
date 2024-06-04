@@ -34,7 +34,13 @@ const runSetProfile1 = async ({ evaluation, test }) => {
         const updatedUser = Meteor.users.findOne({
             _id: user._id,
         });
-        if (!mutationUser) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (!mutationUser) {
             await testFailed({
                 evaluation,
                 test,

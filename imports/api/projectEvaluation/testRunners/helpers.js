@@ -2,6 +2,7 @@ import { Accounts } from "meteor/accounts-base";
 import axios from "axios";
 import ProjectEvaluations from "../entities/projectEvaluation";
 import { TestResults } from "../../constants";
+import Evaluations from "../entities/evaluation";
 
 const USER_ID = "testUser";
 const GRAPHQL_END_POINT = "http://localhost:3000/graphql";
@@ -86,6 +87,8 @@ const testPassed = async ({ evaluation, test }) => {
 const createUser = async () => {
     const stampedToken = Accounts._generateStampedLoginToken();
     const hashStampedToken = Accounts._hashStampedToken(stampedToken);
+    //console.log("token", stampedToken.token);
+    //console.log("hashedToken", hashStampedToken.hashedToken);
     Meteor.users.upsert(
         {
             _id: USER_ID,
@@ -128,6 +131,10 @@ const deleteUser = async () => {
     });
 };
 
+const clearEvaluations = async () => {
+    Evaluations.remove({});
+};
+
 const runQuery = async ({ query, variables, token }) => {
     return await axios.post(
         GRAPHQL_END_POINT,
@@ -144,6 +151,7 @@ const runQuery = async ({ query, variables, token }) => {
 };
 
 export {
+    clearEvaluations,
     createUser,
     deleteUser,
     runQuery,

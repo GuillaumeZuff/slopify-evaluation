@@ -9,10 +9,12 @@ import {
     IconButton,
 } from "@mui/material";
 import React from "react";
-import { StudentNamesFromIds } from "./StudentName";
+import { StudentNamesFromIds, getExportName } from "./StudentName";
 import { EvaluationStatus } from "../../api/constants";
 import TestRunner from "./TestRunner";
 import TestResultsList from "./TestResultsList";
+import { getExportData } from "./getExportData";
+import { saveAs } from "file-saver";
 
 const PROJECT_EVALUATION = gql`
     query projectEvaluation($evaluationId: ID!) {
@@ -101,6 +103,24 @@ const ProjectEvaluation = (props) => {
                                 }}
                             >
                                 Redémarrer
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                    const csvData = getExportData({
+                                        evaluation,
+                                    });
+                                    const blob = new Blob([csvData], {
+                                        type: "text/json;charset=utf-8",
+                                    });
+                                    saveAs(
+                                        blob,
+                                        getExportName({
+                                            studentIds: evaluation.studentIds,
+                                        }),
+                                    );
+                                }}
+                            >
+                                Exporter
                             </Button>
                         </CardActions>
                     )}

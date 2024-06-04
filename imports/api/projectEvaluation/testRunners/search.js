@@ -1,3 +1,4 @@
+import _ from "underscore";
 import {
     createUser,
     deleteUser,
@@ -58,7 +59,13 @@ const runSearch1 = async ({ evaluation, test }) => {
             token: "Bad token",
         });
         const searchData = response?.data?.data?.searchSpotify;
-        if (searchData) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (searchData) {
             await testFailed({
                 evaluation,
                 test,
@@ -88,7 +95,13 @@ const runSearch2 = async ({ evaluation, test }) => {
             token,
         });
         const searchData = response?.data?.data?.searchSpotify;
-        if (!searchData?.albums) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (!searchData?.albums) {
             await testFailed({
                 evaluation,
                 test,

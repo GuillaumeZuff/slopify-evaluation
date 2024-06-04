@@ -44,6 +44,11 @@ export const STUDENTS = [
         lastname: "Tavernier",
         firstname: "Martin",
     },
+    {
+        id: "test",
+        lastname: "Test",
+        firstname: "Test",
+    },
 ];
 
 export const EvaluationStatus = {

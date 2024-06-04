@@ -26,6 +26,7 @@ const createProjectEvaluation = async (obj, args) => {
         deleted: false,
         status: EvaluationStatus.READY,
         studentIds,
+        testIndex: 0,
     });
     return ProjectEvaluations.findOne({
         _id: evaluationId,
