@@ -72,7 +72,6 @@ const runUpdateEvaluation1 = async ({ evaluation, test }) => {
         const dbEvaluation = await Evaluations.findOneAsync({
             _id: slopifyEvaluation?._id,
         });
-        console.log("updatedEvaluation", updatedEvaluation);
         if (!updatedEvaluation) {
             await testFailed({
                 evaluation,
@@ -144,13 +143,6 @@ const updateMyEvaluation2 = async ({ evaluation, test }) => {
             token,
         });
         const slopifyEvaluation = createResponse?.data?.data?.createEvaluation;
-        if (!slopifyEvaluation) {
-            await testFailed({
-                evaluation,
-                test,
-                errorMessage: "createEvaluation n'a pas retourné l'évaluation",
-            });
-        }
         const response = await runQuery({
             query: UPDATE_EVALUATION,
             variables: {
@@ -160,7 +152,19 @@ const updateMyEvaluation2 = async ({ evaluation, test }) => {
             },
             token,
         });
-        if (!response.data?.errors) {
+        if (response.data?.errors) {
+            await testError({
+                evaluation,
+                test,
+                error: response.data.errors[0],
+            });
+        } else if (!slopifyEvaluation) {
+            await testFailed({
+                evaluation,
+                test,
+                errorMessage: "createEvaluation n'a pas retourné l'évaluation",
+            });
+        } else if (!response.data?.errors) {
             await testFailed({
                 evaluation,
                 test,

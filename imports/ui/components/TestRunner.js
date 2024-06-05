@@ -32,7 +32,7 @@ const TestRunner = (props) => {
                         evaluationId: evaluation._id,
                     },
                 });
-            }, 500);
+            }, 100);
             return () => clearTimeout(timer);
         }
     }, [evaluation]);

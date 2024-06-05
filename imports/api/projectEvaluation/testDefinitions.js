@@ -8,9 +8,16 @@ export const TestIds = {
     CREATE_EVALUATION_1: "createEvaluation1",
     CREATE_EVALUATION_2: "createEvaluation2",
     CREATE_EVALUATION_3: "createEvaluation3",
+    DELETE_EVALUATION_1: "deleteEvaluation1",
+    DELETE_EVALUATION_2: "deleteEvaluation2",
     MY_EVALUATION_1: "myEvaluation1",
     MY_EVALUATION_2: "myEvaluation2",
     MY_EVALUATION_3: "myEvaluation3",
+    MY_EVALUATIONS_1: "myEvaluations1",
+    MY_EVALUATIONS_2: "myEvaluations2",
+    ALL_MY_EVALUATIONS_1: "allMyEvaluations1",
+    ALL_MY_EVALUATIONS_2: "allMyEvaluations2",
+    AGGREGATED_EVALUATION_1: "aggregatedEvaluation",
     UPDATE_EVALUATION_1: "updateEvaluation1",
 };
 
@@ -44,6 +51,14 @@ export const TestDefinitions = [
         label: "createEvaluation lève une exception si le user connecté a déjà évalué l'élément Spotify",
     },
     {
+        id: TestIds.DELETE_EVALUATION_1,
+        label: "deleteEvaluation supprime une évaluation",
+    },
+    {
+        id: TestIds.DELETE_EVALUATION_2,
+        label: "deleteEvaluation lève une exception si un user essaie de supprimer une évaluation qui ne lui appartient pas",
+    },
+    {
         id: TestIds.MY_EVALUATION_1,
         label: "myEvaluation retourne l'évaluation demandée par le user connecté",
     },
@@ -54,6 +69,26 @@ export const TestDefinitions = [
     {
         id: TestIds.MY_EVALUATION_3,
         label: "myEvaluation retourne null si aucun user n'est connecté",
+    },
+    {
+        id: TestIds.MY_EVALUATIONS_1,
+        label: "myEvaluations retourne des évaluations du user connecté",
+    },
+    {
+        id: TestIds.MY_EVALUATIONS_2,
+        label: "myEvaluations retourne null si aucun user n'est connecté",
+    },
+    {
+        id: TestIds.ALL_MY_EVALUATIONS_1,
+        label: "allMyEvaluations retourne toutes les évaluations du user connecté",
+    },
+    {
+        id: TestIds.ALL_MY_EVALUATIONS_2,
+        label: "allMyEvaluations retourne null si aucun user n'est connecté",
+    },
+    {
+        id: TestIds.AGGREGATED_EVALUATION_1,
+        label: "aggregatedEvaluation retourne une évaluation aggrégée avec la moyenne des évaluations",
     },
     {
         id: TestIds.UPDATE_EVALUATION_1,

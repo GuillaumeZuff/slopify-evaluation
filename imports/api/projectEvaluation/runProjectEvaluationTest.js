@@ -15,7 +15,19 @@ import {
     runMyEvaluation3,
 } from "./testRunners/myEvaluation";
 import { runUpdateEvaluation1 } from "./testRunners/updateEvaluation";
-import { clearEvaluations, deleteUser } from "./testRunners/helpers";
+import {
+    runMyEvaluations1,
+    runMyEvaluations2,
+} from "./testRunners/myEvaluations";
+import { runAggregatedEvaluation1 } from "./testRunners/aggregatedEvaluation";
+import {
+    runAllMyEvaluations1,
+    runAllMyEvaluations2,
+} from "./testRunners/allMyEvaluations";
+import {
+    runDeleteEvaluation1,
+    runDeleteEvaluation2,
+} from "./testRunners/deleteEvaluation";
 
 const runProjectEvaluationTest = async ({ evaluation }) => {
     const currentTest = TestDefinitions[evaluation.testIndex];
@@ -73,6 +85,14 @@ const runProjectEvaluationTest = async ({ evaluation }) => {
             await runCreateEvaluation3(runnerProps);
             break;
         }
+        case TestIds.DELETE_EVALUATION_1: {
+            await runDeleteEvaluation1(runnerProps);
+            break;
+        }
+        case TestIds.DELETE_EVALUATION_2: {
+            await runDeleteEvaluation2(runnerProps);
+            break;
+        }
         case TestIds.MY_EVALUATION_1: {
             await runMyEvaluation1(runnerProps);
             break;
@@ -83,6 +103,26 @@ const runProjectEvaluationTest = async ({ evaluation }) => {
         }
         case TestIds.MY_EVALUATION_3: {
             await runMyEvaluation3(runnerProps);
+            break;
+        }
+        case TestIds.MY_EVALUATIONS_1: {
+            await runMyEvaluations1(runnerProps);
+            break;
+        }
+        case TestIds.MY_EVALUATIONS_2: {
+            await runMyEvaluations2(runnerProps);
+            break;
+        }
+        case TestIds.ALL_MY_EVALUATIONS_1: {
+            await runAllMyEvaluations1(runnerProps);
+            break;
+        }
+        case TestIds.ALL_MY_EVALUATIONS_2: {
+            await runAllMyEvaluations2(runnerProps);
+            break;
+        }
+        case TestIds.AGGREGATED_EVALUATION_1: {
+            await runAggregatedEvaluation1(runnerProps);
             break;
         }
         case TestIds.UPDATE_EVALUATION_1: {
