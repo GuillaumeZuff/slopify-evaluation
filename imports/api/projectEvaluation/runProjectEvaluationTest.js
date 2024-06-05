@@ -19,7 +19,10 @@ import {
     runMyEvaluations1,
     runMyEvaluations2,
 } from "./testRunners/myEvaluations";
-import { runAggregatedEvaluation1 } from "./testRunners/aggregatedEvaluation";
+import {
+    runAggregatedEvaluation1,
+    runAggregatedEvaluation2,
+} from "./testRunners/aggregatedEvaluation";
 import {
     runAllMyEvaluations1,
     runAllMyEvaluations2,
@@ -93,6 +96,10 @@ const runProjectEvaluationTest = async ({ evaluation }) => {
             await runDeleteEvaluation2(runnerProps);
             break;
         }
+        case TestIds.UPDATE_EVALUATION_1: {
+            await runUpdateEvaluation1(runnerProps);
+            break;
+        }
         case TestIds.MY_EVALUATION_1: {
             await runMyEvaluation1(runnerProps);
             break;
@@ -125,8 +132,12 @@ const runProjectEvaluationTest = async ({ evaluation }) => {
             await runAggregatedEvaluation1(runnerProps);
             break;
         }
-        case TestIds.UPDATE_EVALUATION_1: {
-            await runUpdateEvaluation1(runnerProps);
+        case TestIds.AGGREGATED_EVALUATION_2: {
+            await runAggregatedEvaluation2(runnerProps);
+            break;
+        }
+        case TestIds.AGGREGATED_EVALUATION_3: {
+            await runAggregatedEvaluation2(runnerProps);
             break;
         }
     }

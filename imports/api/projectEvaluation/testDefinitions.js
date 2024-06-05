@@ -17,7 +17,9 @@ export const TestIds = {
     MY_EVALUATIONS_2: "myEvaluations2",
     ALL_MY_EVALUATIONS_1: "allMyEvaluations1",
     ALL_MY_EVALUATIONS_2: "allMyEvaluations2",
-    AGGREGATED_EVALUATION_1: "aggregatedEvaluation",
+    AGGREGATED_EVALUATION_1: "aggregatedEvaluation1",
+    AGGREGATED_EVALUATION_2: "aggregatedEvaluation2",
+    AGGREGATED_EVALUATION_3: "aggregatedEvaluation3",
     UPDATE_EVALUATION_1: "updateEvaluation1",
 };
 
@@ -89,6 +91,14 @@ export const TestDefinitions = [
     {
         id: TestIds.AGGREGATED_EVALUATION_1,
         label: "aggregatedEvaluation retourne une évaluation aggrégée avec la moyenne des évaluations",
+    },
+    {
+        id: TestIds.AGGREGATED_EVALUATION_2,
+        label: "aggregatedEvaluation: si une évaluation est modifiée, la moyenne est mise à jour",
+    },
+    {
+        id: TestIds.AGGREGATED_EVALUATION_3,
+        label: "aggregatedEvaluation: si une évaluation est supprimée, la moyenne est mise à jour",
     },
     {
         id: TestIds.UPDATE_EVALUATION_1,
